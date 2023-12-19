@@ -44,7 +44,6 @@ def make_field(tom1):
     tom1.shape('stone')
     tom1.shapesize(0.5)
     tom1.color('gray')
-    tom1.left(-90)
     tom1.stamp()
     tom1.goto(-135, -126)
     tom1.shape('sciss')
@@ -61,4 +60,5 @@ def figura(tom: turtle.Turtle, name, num=0):
     tom.shape(name)
     tom.shapesize(1.5)
     tom.stamp()
+
 
