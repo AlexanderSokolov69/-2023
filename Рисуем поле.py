@@ -5,7 +5,7 @@ from figures import stone  # Объект КАМЕНЬ
 from figures import sciss  # Объект НОЖНИЦЫ
 from figures import paper  # Объект БУМАГА
 from figures import make_field  # Функция "Рисуем игровое поле"
-from figures import rect  # Функция "Рисуем прямоугольник"
+# from figures import rect  # Функция "Рисуем прямоугольник"
 from figures import figura  # Функция "Рисуем ОБЪЕКТ"
 
 
