@@ -8,7 +8,8 @@ from figures import make_field  # Функция "Рисуем игровое п
 from figures import rect  # Функция "Рисуем прямоугольник"
 from figures import figura  # Функция "Рисуем ОБЪЕКТ"
 
-def result():
+
+def result():  # Вывод результатов игры
     if human != 0 and comp != 0:
         tom3.goto(0, -80)
         tom3.color("orange")
@@ -19,9 +20,9 @@ def result():
             out = "НЕ ПОВЕЗЛО..."
         tom3.write(out, move=False, align="left",
                    font=("Arial", 28, "bold"))
-        print("RESULT")
     else:
         screen.ontimer(result, t=1200)
+
 
 def check():
     global comp
@@ -35,9 +36,10 @@ def check():
             figura(tom2, 'paper', num=1)
     else:
         screen.ontimer(check, t=1000)
-        
-def click(x, y):
-    global human
+
+
+def click(x, y):  # Обработка клика мыши
+    global human, comp
     # print(f"{x}:{y}")
     if human != 0:
         return
@@ -50,25 +52,27 @@ def click(x, y):
     elif -111 < x < -45 and -169 < y < -128:
         figura(tom2, 'paper')
         human = 3
-    
-human = 0
-comp = 0
-turtle.register_shape('stone', stone)
-turtle.register_shape('sciss', sciss)
-turtle.register_shape('paper', paper)
-turtle.tracer(0, 0)
-screen = turtle.Screen()
-screen.listen()
-screen.onclick(click, btn=1)
-screen.ontimer(check, t=1000)
-screen.ontimer(result, t=1200)
 
-tom1 = turtle.Turtle()
-tom2 = turtle.Turtle()
+
+human = 0  # Флаг завершения хода игрока
+comp = 0  # Флаг завершения хода компьютера
+turtle.register_shape('stone', stone)  # Регистрируем КАМЕНЬ
+turtle.register_shape('sciss', sciss)  # Регистрируем НОЖНИЦЫ
+turtle.register_shape('paper', paper)  # Регистрируем БУМАГУ
+turtle.tracer(0, 0)  # Включение скоростного режима
+screen = turtle.Screen()  # Активация экрана
+screen.listen()  # Включение прослкшивания событий клавиатуры и мыши
+screen.onclick(click, btn=1)  # Вызов функции по щелчку мыши
+screen.ontimer(check, t=1000)  # Проверка состояния игры и ход компьютера
+screen.ontimer(result, t=1200)  # Проверка состояния игры и вывод результата
+
+# Регистрация "рисовальщиков"
+tom1 = turtle.Turtle()  # Для рисования фона
+tom2 = turtle.Turtle()  # Для отображения хода
 tom2.hideturtle()
 tom2.right(90)
 tom2.color("green")
-tom3 = turtle.Turtle()
+tom3 = turtle.Turtle()  # Для вывода результатов
 
 tom1.pu()
 tom1.hideturtle()
@@ -76,9 +80,5 @@ tom1.hideturtle()
 make_field(tom1)
 
 tom1.hideturtle()
-
 turtle.update()
-
-
 turtle.done()
-
