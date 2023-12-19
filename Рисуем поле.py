@@ -5,7 +5,7 @@ from figures import stone  # Объект КАМЕНЬ
 from figures import sciss  # Объект НОЖНИЦЫ
 from figures import paper  # Объект БУМАГА
 from figures import make_field  # Функция "Рисуем игровое поле"
-from figures import rect  # Функция "Рисуем прямоугольник"
+# from figures import rect  # Функция "Рисуем прямоугольник"
 from figures import figura  # Функция "Рисуем ОБЪЕКТ"
 
 
@@ -79,8 +79,8 @@ def newgame():
     screen.ontimer(check, t=1000)
 
 
-win_h = 0
-win_c = 0
+win_h = 0  # Счётчик побед игрока
+win_c = 0  # Счётчик побед компьютера
 human = 0  # Флаг завершения хода игрока
 comp = 0  # Флаг завершения хода компьютера
 res = 0  # Флаг вывода результатов

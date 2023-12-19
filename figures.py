@@ -60,5 +60,3 @@ def figura(tom: turtle.Turtle, name, num=0):
     tom.shape(name)
     tom.shapesize(1.5)
     tom.stamp()
-
-
