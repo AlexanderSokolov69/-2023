@@ -9,36 +9,48 @@ from figures import rect  # Функция "Рисуем прямоугольн�
 from figures import figura  # Функция "Рисуем ОБЪЕКТ"
 
 def result():
-    if human != 0 and comp != 0:
-        tom3.goto(0, -80)
-        tom3.color("orange")
-        if human == 1 and comp == 2 or human == 2 and comp == 3 or (
-                human == 3 and comp == 1):
-            out = "ПОБЕДА!!!"
-        else:
-            out = "НЕ ПОВЕЗЛО..."
-        tom3.write(out, move=False, align="left",
-                   font=("Arial", 28, "bold"))
-        print("RESULT")
+    global comp, human, res, win_h, win_c
+    tom3.goto(0, -80)
+    tom3.color("orange")
+    if human == comp:
+        out = "НИЧЬЯ.."
+    elif human == 1 and comp == 2 or human == 2 and comp == 3 or (
+            human == 3 and comp == 1):
+        out = "ПОБЕДА!!!"
+        win_h = win_h + 1
     else:
-        screen.ontimer(result, t=1200)
+        out = "НЕ ПОВЕЗЛО..."
+        win_c = win_c + 1
+    out = out + f" {win_h}:{win_c}"
+    tom3.write(out, move=False, align="left",
+               font=("Arial", 22, "bold"))
+
 
 def check():
-    global comp
-    if human != 0:
-        comp = randint(1, 3)
-        if comp == 1:
-            figura(tom2, 'stone', num=1)
-        elif comp == 2:
-            figura(tom2, 'sciss', num=1)
-        elif comp == 3:
-            figura(tom2, 'paper', num=1)
-    else:
-        screen.ontimer(check, t=1000)
+    global comp, human, res, win_h, win_c
+    if res == 0:
+        if human != 0 and comp != 0:
+            result()
+            res = 1
+        elif human != 0:
+            comp = randint(1, 3)
+            if comp == 1:
+                figura(tom2, 'stone', num=1)
+            elif comp == 2:
+                figura(tom2, 'sciss', num=1)
+            elif comp == 3:
+                figura(tom2, 'paper', num=1)
+    screen.ontimer(check, t=1000)
+
         
 def click(x, y):
-    global human
-    # print(f"{x}:{y}")
+    global comp, human, res, win_h, win_c
+    print(f"{x}:{y}")
+    if res != 0:
+        human = 0
+        comp = 0
+        res = 0
+        make_field(tom1)
     if human != 0:
         return
     if -269 < x < -206 and -169 < y < -128:
@@ -51,17 +63,20 @@ def click(x, y):
         figura(tom2, 'paper')
         human = 3
     
-human = 0
-comp = 0
+human = 0  # 1, 2, 3
+comp = 0  # 1, 2, 3
+res = 0
+win_h = 0
+win_c = 0
 turtle.register_shape('stone', stone)
 turtle.register_shape('sciss', sciss)
 turtle.register_shape('paper', paper)
 turtle.tracer(0, 0)
 screen = turtle.Screen()
 screen.listen()
-screen.onclick(click, btn=1)
-screen.ontimer(check, t=1000)
-screen.ontimer(result, t=1200)
+screen.onclick(click, btn=1)  # Реагируем на клик мыши
+screen.ontimer(check, t=1000)  # Вызываем функцию CHECK через 1000мс
+# screen.ontimer(result, t=1200)
 
 tom1 = turtle.Turtle()
 tom2 = turtle.Turtle()
@@ -72,13 +87,8 @@ tom3 = turtle.Turtle()
 
 tom1.pu()
 tom1.hideturtle()
-# Рисуем игровое поле
-make_field(tom1)
-
-tom1.hideturtle()
+tom1.left(-90)
+make_field(tom1)  # Рисуем игровое поле
 
 turtle.update()
-
-
 turtle.done()
-
